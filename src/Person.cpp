@@ -6,6 +6,9 @@
  */
 
 #include "Person.hpp"
+#include <iostream>
+
+using namespace std;
 
 Person::Person() :
     _expenses(0),
@@ -22,6 +25,7 @@ Person::Person(const string name, const string phone, const float expenses)
 	_name = name;
 	_phoneNumber = phone;
 	_expenses = expenses;
+	_payback = 0;
 }
 const string& Person::getName() const
 {

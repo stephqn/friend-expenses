@@ -16,6 +16,7 @@
 class Group : public vector<Person> {
 public:
     Group();
+    Group(const string groupName, int nbPers);
     virtual ~Group();
 
     const string& getGroupName() const;
@@ -24,6 +25,7 @@ public:
     float expensesPerPerson() const;
 private:
     string _groupName;
+    int _nbPersGroup;
 };
 
 #endif /* GROUP_HPP_ */

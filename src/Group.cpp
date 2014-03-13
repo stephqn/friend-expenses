@@ -11,6 +11,12 @@ Group::Group() {
 
 }
 
+Group::Group(const string groupName, int nbPers)
+{
+	_groupName = groupName;
+	_nbPersGroup = nbPers;
+}
+
 Group::~Group() {
 
 }
