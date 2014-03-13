@@ -19,6 +19,9 @@ int main(int argc, char **argv) {
     /*
      *  Register the input
      */
+    cout << "How many goups are there ?" << endl;
+    int nbGroups;
+    cin >> nbGroups;
     cout << "How many people are you?" << endl;
     cin >> aNb;
 
@@ -29,19 +32,19 @@ int main(int argc, char **argv) {
     cin >> gn;
     aGroup.setGroupName(gn);
     for (unsigned int i=0; i < aNb; i++) {
-        Person aPerson;
+        //Person aPerson;
 
         cout << "What is the name of person " << i+1 << " ?" << endl;
         cin >> name;
-        aPerson.setName(name);
+        //aPerson.setName(name);
 
         cout << "What is the phone number of person " << i+1 << " ?" << endl;
         cin >> phone;
-        aPerson.setPhoneNumber(phone);
+        //aPerson.setPhoneNumber(phone);
         cout << "What is the expenses of person " << i+1 << " ?" << endl;
         cin >> expenses;
-        aPerson.setExpenses(expenses);
-
+        //aPerson.setExpenses(expenses);
+        Person aPerson(name,phone,expenses);
         aGroup.push_back(aPerson);
     }
 

@@ -16,6 +16,13 @@ Person::Person() :
 Person::~Person() {
 
 }
+
+Person::Person(const string name, const string phone, const float expenses)
+{
+	_name = name;
+	_phoneNumber = phone;
+	_expenses = expenses;
+}
 const string& Person::getName() const
 {
 	return _name;
