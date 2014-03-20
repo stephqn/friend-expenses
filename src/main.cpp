@@ -10,62 +10,112 @@
 #include "Group.hpp"
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <stdio.h>
+#include <stdlib.h>
 
+#define DEBUG
+#undef DEBUG
 using namespace std;
 
-int main(int argc, char **argv) {
-    unsigned int aNb = 0;
-    string name, phone, gn, tmp;
-    float expenses;
-    int nbGroups;
-    /*
-     *  Register the input
-     */
-    cout << "How many groups are there ?" << endl;
-    cin >> nbGroups;
+int main(int argc, char **argv)
+{
+	/********* LOCAL VARIABLES *********/
+
+    string name, phone, gn, tmp, currentLine, item;
+    bool group_status;
+
+    int nbPersPerGroup = 0;
+    float aExpensesPerPerson;
+
+    vector<string>  list_group;
+    vector<Person> vPerson;
     vector<Group> Groups;
 
-    for(int j=1; j<=nbGroups; j++)
-    {
-    	cout << "How many people are you in group "<< j << " ? " << endl;
-    	cin >> aNb;
+	/*---------------------------------*/
 
-    	cout << "What is the name of the group "  << endl;
-    	cin >> gn;
-    	Group aGroup(gn, aNb);
-    	for (unsigned int i=0; i < aNb; i++)
+    ifstream myFile("friends-expenses.csv");
+    while(1)
+    {
+    	getline(myFile, currentLine);
+    	if(myFile.eof()) break;
+    	stringstream ss(currentLine.c_str());
+    	vector<string> person;
+    	while (std::getline(ss, item, ','))
     	{
-    		cout << "What is the name of person " << i+1 << " ?" << endl;
-    		cin >> name;
-    		cout << "What is the phone number of person " << i+1 << " ?" << endl;
-    		cin >> phone;
-    		cout << "What is the expenses of person " << i+1 << " ?" << endl;
-    		cin >> expenses;
-    		Person aPerson(name,phone,expenses);
-    		aGroup.push_back(aPerson);
+    		person.push_back(item);
     	}
+    	Person aPerson;
+    	aPerson.setName(person[0]);
+    	aPerson.setPhoneNumber(person[1]);
+    	aPerson.setExpenses(atof(person[2].c_str()));
+    	aPerson.setGroup(person[3]);
+    	if(list_group.size() == 0)
+    		list_group.push_back(person[3]);
+    	for(unsigned int i=0; i<list_group.size(); i++)
+    	{
+    		if(list_group[i] == person[3]) //group existe deja
+    		{
+    			group_status = true;
+    			break;
+    		}
+    		else
+    			group_status = false;
+    	}
+    	if(!group_status)
+    	{
+    		list_group.push_back(person[3]); // contient le nom des groupes
+    	}
+    	vPerson.push_back(aPerson); // contient toutes les personnes
+    }
+	#ifdef DEBUG
+    for(int i=0; i<vPerson.size();i++)
+    {
+        cout << vPerson[i].getName() << vPerson[i].getPhoneNumber() << endl;
+
+    }
+
+    for(int i=0; i<list_group.size(); i++)
+    	cout << list_group[i] << endl;
+	#endif
+
+    //trier les donnees lues dans le csv
+    for(unsigned int i=0; i<list_group.size(); i++)
+    {
+    	Group aGroup;
+    	aGroup.setGroupName(list_group[i]);
+    	for(unsigned int j=0; j<vPerson.size(); j++)
+    	{
+    		if(list_group[i] == vPerson[j].getGroup())
+    		{
+    			//personne par groupe
+    			nbPersPerGroup++;
+    			aGroup.push_back(vPerson[j]);
+    		}
+    	}
+    	//remplir vecteur de group
+    	aGroup.setNbPersGroup(nbPersPerGroup);
+    	nbPersPerGroup = 0;
     	Groups.push_back(aGroup);
     }
 
     /*
      *  Prepare the output
      */
-    float aExpensesPerPerson;
-    for(int i=0; i<nbGroups; i++)
+    cout << endl;
+    for(unsigned int i=0; i<Groups.size(); i++)
     {
-    	cout << endl;
-    	cout << "Total expenses for group: "<< Groups[i].getGroupName() << "\t\t"<<Groups[i].totalExpenses() << endl;
+    	cout << "Total expenses for group: "<< Groups[i].getGroupName() << " "<<Groups[i].totalExpenses() << endl;
     	aExpensesPerPerson = Groups[i].expensesPerPerson();
     	cout << "Expenses per person:\t" << aExpensesPerPerson << endl;
     	cout << endl;
     }
 
-
     cout << "Name\t\t" << "Phone Number\t" << "Expenses\t"
         << "Payback\t\t" << "Group\t" << endl;
     cout << "-----------------------------------------------------------------------"
         << endl;
-    /* TODO Lire fichier CSV ifstream */
     for(vector<Group>::iterator it = Groups.begin(); it != Groups.end(); ++it)
     {
     	Group tmp = *it;

@@ -43,3 +43,13 @@ float Group::expensesPerPerson() const {
     float aExpense = this->totalExpenses() / this->size();
     return aExpense;
 }
+
+int Group::getNbPersGroup() const
+{
+	return _nbPersGroup;
+}
+
+void Group::setNbPersGroup(int nbPersGroup)
+{
+	_nbPersGroup = nbPersGroup;
+}

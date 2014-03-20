@@ -70,3 +70,14 @@ void Person::setPayback(const float expenses)
 void Person::operatePayback(const float iExpensesPerPerson) {
     _payback = _expenses - iExpensesPerPerson;
 }
+
+const string& Person::getGroup() const
+{
+	return _groupName;
+}
+void Person::setGroup(const string& groupName)
+{
+	_groupName = groupName;
+}
+
+

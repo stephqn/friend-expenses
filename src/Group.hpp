@@ -23,6 +23,8 @@ public:
     void setGroupName(const string& name);
     float totalExpenses() const;
     float expensesPerPerson() const;
+    int getNbPersGroup() const;
+    void setNbPersGroup(int nbPersGroup);
 private:
     string _groupName;
     int _nbPersGroup;

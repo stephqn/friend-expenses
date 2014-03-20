@@ -27,12 +27,16 @@ public:
     void setExpenses(const float expenses);
     void setPayback(const float payBack);
     void operatePayback(const float iExpensesPerPerson);
+    const string& getGroup() const;
+    void setGroup(const string& groupName);
+
 
 private:
     string _name;
     string _phoneNumber;
     float _expenses;
     float _payback;
+    string _groupName;
 };
 
 #endif /* PERSON_HPP_ */
