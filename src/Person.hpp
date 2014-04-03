@@ -31,7 +31,7 @@ public:
     void setGroup(const string& groupName);
 
 
-private:
+protected:
     string _name;
     string _phoneNumber;
     float _expenses;

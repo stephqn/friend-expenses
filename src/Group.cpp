@@ -34,7 +34,7 @@ void Group::setGroupName(const string& name)
 float Group::totalExpenses() const {
     float aTotal = 0;
     for (size_t i=0; i < this->size(); i++) {
-        aTotal += this->at(i).getExpenses();
+        aTotal += this->at(i)->getExpenses();
     }
     return aTotal;
 }

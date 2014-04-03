@@ -13,7 +13,7 @@
 #include <vector>
 #include <string>
 
-class Group : public vector<Person> {
+class Group : public vector<Person*> {
 public:
     Group();
     Group(const string groupName, int nbPers);
