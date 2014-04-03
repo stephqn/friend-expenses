@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     string name, phone, gn, tmp, currentLine, item;
     bool group_status;
 
-    int nbPersPerGroup = 0;
+    int nbPersPerGroup = 0, lineCounter = 0;
     float aExpensesPerPerson;
 
     vector<string>  list_group;
@@ -34,51 +34,72 @@ int main(int argc, char **argv)
     vector<Group> Groups;
 
 	/*---------------------------------*/
-
-    ifstream myFile("friends-expenses.csv");
+    if(argv[1] == NULL)
+    {
+    	cout << "\nNo input file specified... Exiting" << endl;
+    	return 1;
+    }
+    cout << "\nInput data file : " << argv[1] << endl;
+    ifstream myFile;
+    myFile.exceptions(ifstream::failbit); // Set flag failbit for exceptions
+    try
+    {
+    	myFile.open(argv[1]);
+    }
+    catch(ios_base::failure &e)
+    {
+    	cout << "Exception caught while opening your file : " << endl;
+    	cout << e.what() << endl;
+    }
     while(1)
     {
+
     	getline(myFile, currentLine);
-    	if(myFile.eof()) break;
-    	stringstream ss(currentLine.c_str());
-    	vector<string> person;
-    	while (std::getline(ss, item, ','))
+    	if(lineCounter != 0)
     	{
-    		person.push_back(item);
-    	}
-    	Person aPerson;
-    	aPerson.setName(person[0]);
-    	aPerson.setPhoneNumber(person[1]);
-    	aPerson.setExpenses(atof(person[2].c_str()));
-    	aPerson.setGroup(person[3]);
-    	if(list_group.size() == 0)
-    		list_group.push_back(person[3]);
-    	for(unsigned int i=0; i<list_group.size(); i++)
-    	{
-    		if(list_group[i] == person[3]) //group existe deja
+    		if(myFile.eof()) break;
+    		stringstream ss(currentLine.c_str());
+    		vector<string> person;
+    		while (std::getline(ss, item, ','))
     		{
-    			group_status = true;
-    			break;
+    			person.push_back(item);
     		}
-    		else
-    			group_status = false;
+    		Person aPerson;
+    		aPerson.setName(person[0]);
+    		aPerson.setPhoneNumber(person[1]);
+    		aPerson.setExpenses(atof(person[2].c_str()));
+    		aPerson.setGroup(person[3]);
+    		if(list_group.size() == 0)
+    			list_group.push_back(person[3]);
+    		for(unsigned int i=0; i<list_group.size(); i++)
+    		{
+    			if(list_group[i] == person[3]) //group existe deja
+    			{
+    				group_status = true;
+    				break;
+    			}
+    			else
+    				group_status = false;
+    		}
+    		if(!group_status)
+    		{
+    			list_group.push_back(person[3]); // contient le nom des groupes
+    		}
+    		vPerson.push_back(aPerson); // contient toutes les personnes
     	}
-    	if(!group_status)
-    	{
-    		list_group.push_back(person[3]); // contient le nom des groupes
-    	}
-    	vPerson.push_back(aPerson); // contient toutes les personnes
+    	lineCounter++;
+
     }
-	#ifdef DEBUG
+#ifdef DEBUG
     for(int i=0; i<vPerson.size();i++)
     {
-        cout << vPerson[i].getName() << vPerson[i].getPhoneNumber() << endl;
+    	cout << vPerson[i].getName() << vPerson[i].getPhoneNumber() << endl;
 
     }
 
     for(int i=0; i<list_group.size(); i++)
     	cout << list_group[i] << endl;
-	#endif
+#endif
 
     //trier les donnees lues dans le csv
     for(unsigned int i=0; i<list_group.size(); i++)
