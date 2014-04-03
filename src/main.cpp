@@ -41,10 +41,10 @@ int main(int argc, char **argv)
     }
     cout << "\nInput data file : " << argv[1] << endl;
     ifstream myFile;
-    myFile.exceptions(ifstream::failbit); // Set flag failbit for exceptions
     try
     {
     	myFile.open(argv[1]);
+    	if(!myFile) myFile.exceptions(ifstream::failbit); // Set flag failbit for exceptions
     }
     catch(ios_base::failure &e)
     {
