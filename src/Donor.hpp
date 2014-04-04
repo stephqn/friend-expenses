@@ -14,7 +14,7 @@ class Donor : public Person
 public:
 	Donor();
 	Donor(const string name, const string phone, const float donation, const string groupName);
-
+	void operatePayback(const float iExpensesPerPerson);
 	~Donor();
 
 private:

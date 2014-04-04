@@ -9,10 +9,10 @@
 #define PERSON_HPP_
 
 #include <string>
-
+class Group;
 using namespace std;
 
-class Person
+class Person //: public Group
 {
 public:
     Person();
@@ -29,6 +29,9 @@ public:
     void operatePayback(const float iExpensesPerPerson);
     const string& getGroup() const;
     void setGroup(const string& groupName);
+    void setType(const string& type);
+    const string& getType() const;
+
 
 
 protected:
@@ -37,6 +40,7 @@ protected:
     float _expenses;
     float _payback;
     string _groupName;
+    string _type;
 };
 
 #endif /* PERSON_HPP_ */

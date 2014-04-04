@@ -9,7 +9,6 @@
 #define GROUP_HPP_
 
 #include "Person.hpp"
-
 #include <vector>
 #include <string>
 
@@ -25,7 +24,7 @@ public:
     float expensesPerPerson() const;
     int getNbPersGroup() const;
     void setNbPersGroup(int nbPersGroup);
-private:
+protected:
     string _groupName;
     int _nbPersGroup;
 };

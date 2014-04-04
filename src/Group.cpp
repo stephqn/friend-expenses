@@ -34,13 +34,20 @@ void Group::setGroupName(const string& name)
 float Group::totalExpenses() const {
     float aTotal = 0;
     for (size_t i=0; i < this->size(); i++) {
-        aTotal += this->at(i)->getExpenses();
+    	if(this->at(i)->getType() != "Donor")
+    	{
+    		aTotal += this->at(i)->getExpenses();
+    	}
+    	else
+    	{
+    		aTotal -=  this->at(i)->getExpenses();
+    	}
     }
     return aTotal;
 }
 
 float Group::expensesPerPerson() const {
-    float aExpense = this->totalExpenses() / this->size();
+    float aExpense = this->totalExpenses() / _nbPersGroup;
     return aExpense;
 }
 

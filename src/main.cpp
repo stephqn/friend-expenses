@@ -27,12 +27,12 @@ int main(int argc, char **argv)
     string name, phone, gn, tmp, currentLine, item;
     bool group_status;
 
-    int nbPersPerGroup = 0, lineCounter = 0;
+    int nbPersPerGroup = 0, lineCounter = 0, nbDonor=0;
     float aExpensesPerPerson;
 
     vector<string>  list_group;
     vector<Person*> vPerson;
-    vector<Group*> Groups;
+    vector<Group> Groups;
 
 	/*---------------------------------*/
     if(argv[1] == NULL)
@@ -72,11 +72,17 @@ int main(int argc, char **argv)
     			aPerson->setPhoneNumber(person[1]);
     			aPerson->setExpenses(atof(person[2].c_str()));
     			aPerson->setGroup(person[3]);
+    			aPerson->setType(person[4]);
     		}
     		cout << person[4] << endl;
+    		Donor *aDonor = new Donor;
     		if (person [4] == "Donor")
     		{
-    			Donor aDonor(person[0], person[1], atof(person[2].c_str()), person[3]);
+    			aDonor->setName(person[0]);
+    			aDonor->setPhoneNumber(person[1]);
+    			aDonor->setExpenses(atof(person[2].c_str()));
+    			aDonor->setGroup(person[3]);
+    			aDonor->setType(person[4]);
     		}
     		if(list_group.size() == 0)
     			list_group.push_back(person[3]);
@@ -97,7 +103,11 @@ int main(int argc, char **argv)
     		if(person[4] == "Person")
     			vPerson.push_back(aPerson); // contient toutes les personnes
     		else
-    			vPerson.push_back(aPerson);
+    		{
+    			//vPerson.push_back(aPerson);
+    			Person* transDonor = dynamic_cast<Person*>(aDonor);
+    			vPerson.push_back(transDonor);
+    		}
     			/* TODO */
     			/* créer des pointeur de donor
     			 * puis le caster en pointeur de person. Modifier le vecteur de person
@@ -121,20 +131,27 @@ int main(int argc, char **argv)
     //trier les donnees lues dans le csv
     for(unsigned int i=0; i<list_group.size(); i++)
     {
-    	Group *aGroup = new Group;
-    	aGroup->setGroupName(list_group[i]);
+//    	Group *aGroup = new Group;
+    	Group aGroup;
+    	aGroup.setGroupName(list_group[i]);
     	for(unsigned int j=0; j<vPerson.size(); j++)
     	{
     		if(list_group[i] == vPerson[j]->getGroup())
     		{
     			//personne par groupe
     			nbPersPerGroup++;
-    			aGroup->push_back(vPerson[j]);
+    			aGroup.push_back(vPerson[j]);
+    			if(vPerson[j]->getType() == "Donor")
+    			{
+    				nbDonor++;
+    			}
     		}
     	}
     	//remplir vecteur de group
-    	aGroup->setNbPersGroup(nbPersPerGroup);
+    	aGroup.setNbPersGroup(nbPersPerGroup-nbDonor);
+    	cout << nbDonor << endl;
     	nbPersPerGroup = 0;
+    	nbDonor = 0;
     	Groups.push_back(aGroup);
     }
 
@@ -144,8 +161,8 @@ int main(int argc, char **argv)
     cout << endl;
     for(unsigned int i=0; i<Groups.size(); i++)
     {
-    	cout << "Total expenses for group: "<< Groups[i]->getGroupName() << " "<<Groups[i]->totalExpenses() << endl;
-    	aExpensesPerPerson = Groups[i]->expensesPerPerson();
+    	cout << "Total expenses for group: "<< Groups[i].getGroupName() << " "<<Groups[i].totalExpenses() << endl;
+    	aExpensesPerPerson = Groups[i].expensesPerPerson();
     	cout << "Expenses per person:\t" << aExpensesPerPerson << endl;
     	cout << endl;
     }
@@ -154,21 +171,25 @@ int main(int argc, char **argv)
         << "Payback\t\t" << "Group\t" << endl;
     cout << "-----------------------------------------------------------------------"
         << endl;
-    for(vector<Group*>::iterator it = Groups.begin(); it != Groups.end(); ++it)
+    for(vector<Group>::iterator it = Groups.begin(); it != Groups.end(); ++it)
     {
-    	Group *tmp = *it;
-    	int exp = (*it)->expensesPerPerson();
-    	for (size_t i=0; i < tmp->size(); ++i)
+    	Group tmp = *it;
+    	int exp = it->expensesPerPerson();
+    	for (size_t i=0; i < tmp.size(); ++i)
     	{
     		// operate the payback first
-    		tmp[i].operatePayback(exp);
+    		tmp[i]->operatePayback(exp);
     		// display the values
+    		if(tmp[i]->getType() == "Donor")
+    		{
+    			tmp[i]->setPayback(0);
+    		}
     		cout << tmp[i]->getName() << "\t\t" << tmp[i]->getPhoneNumber()
     	            		<< "\t\t" << tmp[i]->getExpenses() << "\t\t"
-    	            		<< tmp[i]->getPayback() << "\t\t" << tmp->getGroupName() << endl;
+    	            		<< tmp[i]->getPayback() << "\t\t" << tmp.getGroupName() << endl;
     	}
     }
     cout << endl;
-
+   // test->setGroupName("test");
     return 0;
 }

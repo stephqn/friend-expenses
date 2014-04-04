@@ -25,3 +25,6 @@ Donor::~Donor()
 	// TODO Auto-generated destructor stub
 }
 
+void Donor::operatePayback(const float iExpensesPerPerson) {
+    _payback = 0;
+}

@@ -80,4 +80,13 @@ void Person::setGroup(const string& groupName)
 	_groupName = groupName;
 }
 
+void Person::setType(const string& type)
+{
+	_type = type;
+}
+
+const string& Person::getType() const
+{
+	return _type;
+}
 
