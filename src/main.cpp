@@ -71,17 +71,16 @@ int main(int argc, char **argv)
     			aPerson->setName(person[0]);
     			aPerson->setPhoneNumber(person[1]);
     			aPerson->setExpenses(atof(person[2].c_str()));
-    			aPerson->setGroup(person[3]);
+    			aPerson->setGroupName(person[3]);
     			aPerson->setType(person[4]);
     		}
-    		cout << person[4] << endl;
     		Donor *aDonor = new Donor;
     		if (person [4] == "Donor")
     		{
     			aDonor->setName(person[0]);
     			aDonor->setPhoneNumber(person[1]);
     			aDonor->setExpenses(atof(person[2].c_str()));
-    			aDonor->setGroup(person[3]);
+    			aDonor->setGroupName(person[3]);
     			aDonor->setType(person[4]);
     		}
     		if(list_group.size() == 0)
@@ -104,11 +103,10 @@ int main(int argc, char **argv)
     			vPerson.push_back(aPerson); // contient toutes les personnes
     		else
     		{
-    			//vPerson.push_back(aPerson);
     			Person* transDonor = dynamic_cast<Person*>(aDonor);
     			vPerson.push_back(transDonor);
     		}
-    			/* TODO */
+    			/* TODONE */
     			/* créer des pointeur de donor
     			 * puis le caster en pointeur de person. Modifier le vecteur de person
     			 * en vecteur de pointeur de person
@@ -131,12 +129,11 @@ int main(int argc, char **argv)
     //trier les donnees lues dans le csv
     for(unsigned int i=0; i<list_group.size(); i++)
     {
-//    	Group *aGroup = new Group;
     	Group aGroup;
     	aGroup.setGroupName(list_group[i]);
     	for(unsigned int j=0; j<vPerson.size(); j++)
     	{
-    		if(list_group[i] == vPerson[j]->getGroup())
+    		if(list_group[i] == vPerson[j]->getGroupName())
     		{
     			//personne par groupe
     			nbPersPerGroup++;
@@ -149,7 +146,6 @@ int main(int argc, char **argv)
     	}
     	//remplir vecteur de group
     	aGroup.setNbPersGroup(nbPersPerGroup-nbDonor);
-    	cout << nbDonor << endl;
     	nbPersPerGroup = 0;
     	nbDonor = 0;
     	Groups.push_back(aGroup);
@@ -182,7 +178,8 @@ int main(int argc, char **argv)
     		// display the values
     		if(tmp[i]->getType() == "Donor")
     		{
-    			tmp[i]->setPayback(0);
+    			Donor* dnr = dynamic_cast<Donor*>(tmp[i]);
+    			dnr->operatePayback(exp);
     		}
     		cout << tmp[i]->getName() << "\t\t" << tmp[i]->getPhoneNumber()
     	            		<< "\t\t" << tmp[i]->getExpenses() << "\t\t"
@@ -190,6 +187,5 @@ int main(int argc, char **argv)
     	}
     }
     cout << endl;
-   // test->setGroupName("test");
     return 0;
 }
