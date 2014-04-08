@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iomanip>
+#include <gtest/gtest.h>
 
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"      /* Black */
@@ -207,5 +208,8 @@ int main(int argc, char **argv)
     	else
     		color_indexer++;
     }
+    cout << endl;
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
     return 0;
 }
