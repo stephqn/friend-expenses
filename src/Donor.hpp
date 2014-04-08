@@ -2,7 +2,7 @@
  * Donor.hpp
  *
  *  Created on: 3 avr. 2014
- *      Author: yanis
+ *      Author: YH
  */
 
 #ifndef DONOR_HPP_
@@ -14,8 +14,10 @@ class Donor : public Person
 public:
 	Donor();
 	Donor(const string name, const string phone, const float donation, const string groupName);
+	float getExpenses() const;
+	void setExpenses(const float expenses);
 	void operatePayback(const float iExpensesPerPerson);
-	~Donor();
+	virtual ~Donor();
 
 private:
 	float _donation;

@@ -2,7 +2,7 @@
  * Person.hpp
  *
  *  Created on: Feb 18, 2014
- *      Author: aabou
+ *      Author: YH
  */
 
 #ifndef PERSON_HPP_
@@ -25,13 +25,13 @@ public:
     const string& getPhoneNumber() const;
     void setPhoneNumber(const string& phoneNumber);
 
-    float getExpenses() const;
-    void setExpenses(const float expenses);
+    virtual float getExpenses() const;
+    virtual void setExpenses(const float expenses);
 
     float getPayback() const;
     void setPayback(const float payBack);
 
-    void operatePayback(const float iExpensesPerPerson);
+    virtual void operatePayback(const float iExpensesPerPerson);
 
     //const string& getGroup() const;
     //void setGroup(const string& groupName);
@@ -54,7 +54,9 @@ protected:
     float _payback;
     string _groupName;
     string _type;
+private:
     Group *_pGroup;
+
 };
 
 #endif /* PERSON_HPP_ */

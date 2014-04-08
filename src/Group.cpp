@@ -2,19 +2,22 @@
  * Group.cpp
  *
  *  Created on: Feb 18, 2014
- *      Author: aabou
+ *      Author: YH
  */
 
 #include "Group.hpp"
+#include "Donor.hpp"
 
-Group::Group() {
-
+Group::Group()
+{
+	_nbPersGroup = 0;
 }
 
 Group::Group(const string groupName, int nbPers)
 {
 	_groupName = groupName;
 	_nbPersGroup = nbPers;
+	_nbPersGroup = 0;
 }
 
 Group::~Group() {

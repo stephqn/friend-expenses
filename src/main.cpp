@@ -1,9 +1,9 @@
 //============================================================================
 // Name        : main.cpp
-// Author      : Yanis
+// Author      : YH
 // Version     :
 // Copyright   : Your copyright notice
-// Description : Tutorial - Application to manage friends expenses
+// Description : Application to manage friends expenses
 //============================================================================
 
 #include "Person.hpp"
@@ -14,10 +14,30 @@
 #include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <iomanip>
 
+#define RESET   "\033[0m"
+#define BLACK   "\033[30m"      /* Black */
+#define RED     "\033[31m"      /* Red */
+#define GREEN   "\033[32m"      /* Green */
+#define YELLOW  "\033[33m"      /* Yellow */
+#define BLUE    "\033[34m"      /* Blue */
+#define MAGENTA "\033[35m"      /* Magenta */
+#define CYAN    "\033[36m"      /* Cyan */
+#define WHITE   "\033[37m"      /* White */
+#define BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
+#define BOLDRED     "\033[1m\033[31m"      /* Bold Red */
+#define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
+#define BOLDYELLOW  "\033[1m\033[33m"      /* Bold Yellow */
+#define BOLDBLUE    "\033[1m\033[34m"      /* Bold Blue */
+#define BOLDMAGENTA "\033[1m\033[35m"      /* Bold Magenta */
+#define BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
+#define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
 #define DEBUG
 #undef DEBUG
+
+#define NB_MAX_COLOR 7
 using namespace std;
 
 int main(int argc, char **argv)
@@ -27,13 +47,14 @@ int main(int argc, char **argv)
     string name, phone, gn, tmp, currentLine, item;
     bool group_status;
 
-    int nbPersPerGroup = 0, lineCounter = 0, nbDonor=0;
+    int nbPersPerGroup = 0, lineCounter = 0, nbDonor=0, color_indexer = 0;
     float aExpensesPerPerson;
 
     vector<string>  list_group;
     vector<Person*> vPerson;
     vector<Group> Groups;
 
+    const char* colors[NB_MAX_COLOR] = {BOLDWHITE, BOLDRED, BOLDGREEN, BOLDBLUE, BOLDMAGENTA, BOLDCYAN, BOLDBLACK};
 	/*---------------------------------*/
     if(argv[1] == NULL)
     {
@@ -103,14 +124,9 @@ int main(int argc, char **argv)
     			vPerson.push_back(aPerson); // contient toutes les personnes
     		else
     		{
-    			Person* transDonor = dynamic_cast<Person*>(aDonor);
-    			vPerson.push_back(transDonor);
+//    			Person* transDonor = dynamic_cast<Person*>(aDonor);
+    			vPerson.push_back(aDonor);
     		}
-    			/* TODONE */
-    			/* créer des pointeur de donor
-    			 * puis le caster en pointeur de person. Modifier le vecteur de person
-    			 * en vecteur de pointeur de person
-    			 */
     	}
     	lineCounter++;
 
@@ -157,16 +173,17 @@ int main(int argc, char **argv)
     cout << endl;
     for(unsigned int i=0; i<Groups.size(); i++)
     {
-    	cout << "Total expenses for group: "<< Groups[i].getGroupName() << " "<<Groups[i].totalExpenses() << endl;
+    	cout << "Total expenses for group " << BOLDBLUE << Groups[i].getGroupName() << " : " << BOLDRED << Groups[i].totalExpenses() << RESET <<endl;
     	aExpensesPerPerson = Groups[i].expensesPerPerson();
-    	cout << "Expenses per person:\t" << aExpensesPerPerson << endl;
+    	cout << "Average expenses per person : " << BOLDYELLOW << aExpensesPerPerson << RESET << endl;
     	cout << endl;
     }
 
-    cout << "Name\t\t" << "Phone Number\t" << "Expenses\t"
-        << "Payback\t\t" << "Group\t" << endl;
+    cout << BOLDWHITE <<"Name\t\t" << "Phone Number\t" << "Expenses\t"
+        << "Payback\t\t" << "Group\t" << RESET << endl;
     cout << "-----------------------------------------------------------------------"
         << endl;
+
     for(vector<Group>::iterator it = Groups.begin(); it != Groups.end(); ++it)
     {
     	Group tmp = *it;
@@ -176,16 +193,19 @@ int main(int argc, char **argv)
     		// operate the payback first
     		tmp[i]->operatePayback(exp);
     		// display the values
-    		if(tmp[i]->getType() == "Donor")
-    		{
-    			Donor* dnr = dynamic_cast<Donor*>(tmp[i]);
-    			dnr->operatePayback(exp);
-    		}
-    		cout << tmp[i]->getName() << "\t\t" << tmp[i]->getPhoneNumber()
-    	            		<< "\t\t" << tmp[i]->getExpenses() << "\t\t"
-    	            		<< tmp[i]->getPayback() << "\t\t" << tmp.getGroupName() << endl;
+    		cout << colors[color_indexer]
+    		     << tmp[i]->getName() << "\t\t"
+    			 << tmp[i]->getPhoneNumber() << "\t\t"
+    			 << tmp[i]->getExpenses() << "\t\t"
+    	         << tmp[i]->getPayback() << "\t\t"
+    	         << tmp.getGroupName()
+    	         << RESET
+    	         << endl;
     	}
+    	if(color_indexer==NB_MAX_COLOR-1)
+    		color_indexer=0;
+    	else
+    		color_indexer++;
     }
-    cout << endl;
     return 0;
 }
