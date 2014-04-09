@@ -17,10 +17,6 @@ Person::Person() :
 	_pGroup = new Group;
 }
 
-Person::~Person() {
-
-}
-
 Person::Person(const string name, const string phone, const float expenses, const string type)
 {
 	_name = name;
@@ -30,6 +26,12 @@ Person::Person(const string name, const string phone, const float expenses, cons
 	_type = type;
 	_pGroup = new Group;
 }
+Person::~Person()
+{
+	delete _pGroup;
+}
+
+
 const string& Person::getName() const
 {
 	return _name;

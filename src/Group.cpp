@@ -17,7 +17,6 @@ Group::Group(const string groupName, int nbPers)
 {
 	_groupName = groupName;
 	_nbPersGroup = nbPers;
-	_nbPersGroup = 0;
 }
 
 Group::~Group() {

@@ -13,7 +13,11 @@ using namespace std;
 
 Person aPerson("Yanis","068071",100,"Person");
 
-TEST(Person, Init)
+/*
+ * Test user defined constructor
+ */
+
+TEST(Person, isInitOk)
 {
 	EXPECT_EQ("Yanis", aPerson.getName());
 	EXPECT_EQ("068071", aPerson.getPhoneNumber());
@@ -21,7 +25,11 @@ TEST(Person, Init)
 	EXPECT_EQ("Person",aPerson.getType());
 }
 
-TEST(Person, Setters)
+/*
+ * Test setters
+ */
+
+TEST(Person, isSetterOk)
 {
 	aPerson.setName("Deneb");
 	aPerson.setPhoneNumber("01234");
@@ -34,14 +42,20 @@ TEST(Person, Setters)
 	EXPECT_EQ("Person",aPerson.getType());
 }
 
-TEST(Person, Payback)
+/*
+ * Test calculation of payback
+ */
+
+TEST(Person, isPaybackOk)
 {
 	aPerson.operatePayback(300);
 	// Spent 205€, average spending per person is 300
 	EXPECT_EQ(-95,aPerson.getPayback());
 }
-
-TEST(Person, Groupname)
+/*
+ * Test setting Group::_groupName via pointer from class Person
+ */
+TEST(Person, isGroupNameOk)
 {
 	aPerson.setGroupName("TestGroup");
 	EXPECT_EQ("TestGroup", aPerson.getGroupName());
