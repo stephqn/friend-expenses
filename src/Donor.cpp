@@ -6,6 +6,7 @@
  */
 
 #include "Donor.hpp"
+#include "Group.hpp"
 #include <iostream>
 
 using namespace std;
@@ -14,12 +15,11 @@ Donor::Donor()
 	_donation = 0;
 }
 
-Donor::Donor(const string name, const string phone, const float donation, const string groupName)
+Donor::Donor(const string name, const string phone, const float donation)
 {
 	_name = name;
 	_phoneNumber = phone;
 	_donation = donation;
-	_groupName = groupName;
 }
 
 Donor::~Donor()

@@ -12,7 +12,7 @@
 class Group;
 using namespace std;
 
-class Person //: public Group
+class Person
 {
 public:
     Person();
@@ -33,9 +33,6 @@ public:
 
     virtual void operatePayback(const float iExpensesPerPerson);
 
-    //const string& getGroup() const;
-    //void setGroup(const string& groupName);
-
     const string& getType() const;
     void setType(const string& type);
 
@@ -52,7 +49,6 @@ protected:
     string _phoneNumber;
     float _expenses;
     float _payback;
-    string _groupName;
     string _type;
 private:
     Group *_pGroup;
