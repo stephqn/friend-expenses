@@ -64,6 +64,7 @@ int main(int argc, char **argv)
     }
     cout << "\nInput data file : " << argv[1] << endl;
     ifstream myFile;
+    Person *aPerson;
     try
     {
     	myFile.open(argv[1]);
@@ -87,23 +88,26 @@ int main(int argc, char **argv)
     		{
     			person.push_back(item);
     		}
-    		Person *aPerson = new Person;
+//    		Person *aPerson = new Person;
+    		/* TODO modifier boucle if + déclaration *person *donor */
     		if(person[4] == "Person")
     		{
+    			aPerson = new Person;
     			aPerson->setName(person[0]);
     			aPerson->setPhoneNumber(person[1]);
     			aPerson->setExpenses(atof(person[2].c_str()));
     			aPerson->setGroupName(person[3]);
     			aPerson->setType(person[4]);
     		}
-    		Donor *aDonor = new Donor;
+//    		Donor *aDonor = new Donor;
     		if (person [4] == "Donor")
     		{
-    			aDonor->setName(person[0]);
-    			aDonor->setPhoneNumber(person[1]);
-    			aDonor->setExpenses(atof(person[2].c_str()));
-    			aDonor->setGroupName(person[3]);
-    			aDonor->setType(person[4]);
+    			aPerson = new Donor;
+    			aPerson->setName(person[0]);
+    			aPerson->setPhoneNumber(person[1]);
+    			aPerson->setExpenses(atof(person[2].c_str()));
+    			aPerson->setGroupName(person[3]);
+    			aPerson->setType(person[4]);
     		}
     		if(list_group.size() == 0)
     			list_group.push_back(person[3]);
@@ -121,13 +125,13 @@ int main(int argc, char **argv)
     		{
     			list_group.push_back(person[3]); // contient le nom des groupes
     		}
-    		if(person[4] == "Person")
+//    		if(person[4] == "Person")
     			vPerson.push_back(aPerson); // contient toutes les personnes
-    		else
-    		{
+//    		else
+//    		{
 //    			Person* transDonor = dynamic_cast<Person*>(aDonor);
-    			vPerson.push_back(aDonor);
-    		}
+//    			vPerson.push_back(aDonor);
+//    		}
     	}
     	lineCounter++;
 
@@ -209,7 +213,5 @@ int main(int argc, char **argv)
     		color_indexer++;
     }
     cout << endl;
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
     return 0;
 }

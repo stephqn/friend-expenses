@@ -13,7 +13,7 @@ class Donor : public Person
 {
 public:
 	Donor();
-	Donor(const string name, const string phone, const float donation, const string groupName);
+	Donor(const string name, const string phone, const float donation);
 	float getExpenses() const;
 	void setExpenses(const float expenses);
 	void operatePayback(const float iExpensesPerPerson);
