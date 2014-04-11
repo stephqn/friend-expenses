@@ -45,6 +45,8 @@ int main(int argc, char **argv)
 {
 	/********* LOCAL VARIABLES *********/
 
+	string toto;
+
     string name, phone, gn, tmp, currentLine, item;
     bool group_status;
 
