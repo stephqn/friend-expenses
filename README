@@ -1,0 +1,25 @@
+Fonctionnement : 
+Chacun travaille dans sa branche en local (elles seront crées par moi même).
+Dans Eclipse, clic droit sur le projet, que vous venez de cloner, Team et Switch To > Votre branche. 
+
+Régulièrement, avant de travailler faire 
+     - git pull origin master 
+Cette commande permettra de récupérer les dernières modifications validées de la branche master. Je vous conseille de le faire régulièrement.
+
+ATTENTION : Ces modifications peuvent entrer en conflit avec votre code que vous êtes en train développer. Vous devez donc aller sur github et regarder les modifications.
+Si vous choisissez de ne pas faire cette commande, vous pouvez continuer à travailler.
+
+Puis, lorsque vous avez terminé vos ajouts de code :
+     - Dans Eclipse, clic droit > commit (UNIQUEMENT, PAS DE PUSH)
+Ensuite, push dans VOTRE branche :
+     - git push origin votre_branche
+
+A partir de là, il faut que vous vous rendiez sur le site github et que vous ouvriez une pull request. Ici, deux choix : 
+    a) Vous êtes bon, vous faîtes directement le merge sur le site en gérant les différences de la derniere version de master et la votre
+    b) Vous me laissez à moi faire le merge.
+
+Si les modifications sont lourdes, on fait le merge ensemble. Pour les petites modifications débrouillez vous. 
+
+Conseil : faire un git pull origin master avant le pull request.
+
+NB : AVANT TOUTE MANIPULATION, FAIRE UNE COPIE DE VOTRE PROJET EN LOCAL. CE GUIDE EST EN VERSION EXPERIMENTALE
