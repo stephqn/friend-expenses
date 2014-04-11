@@ -2,7 +2,7 @@
 // Name        : main.cpp
 // Author      : YH
 // Version     :
-// Copyright   : Your copyright notice
+// Copyright   : latest
 // Description : Application to manage friends expenses
 //============================================================================
 
@@ -43,7 +43,6 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-
 	/********* LOCAL VARIABLES *********/
 
     string name, phone, gn, tmp, currentLine, item;
