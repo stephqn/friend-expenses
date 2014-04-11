@@ -43,6 +43,7 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
+
 	/********* LOCAL VARIABLES *********/
 
     string name, phone, gn, tmp, currentLine, item;
@@ -68,7 +69,7 @@ int main(int argc, char **argv)
     try
     {
     	myFile.open(argv[1]);
-    	if(!myFile) myFile.exceptions(ifstream::failbit); // Set flag failbit for exceptions
+    	if(!myFile) myFile.exceptions(ifstream::failbit); // Set flag fail bit for exceptions
     }
     catch(ios_base::failure &e)
     {
