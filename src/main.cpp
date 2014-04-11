@@ -43,6 +43,7 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
+
 	/********* LOCAL VARIABLES *********/
 
     string name, phone, gn, tmp, currentLine, item;
