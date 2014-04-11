@@ -183,9 +183,20 @@ int main(int argc, char **argv)
     	cout << endl;
     }
 
-    cout << BOLDWHITE <<"Name\t\t" << "Phone Number\t" << "Expenses\t"
-        << "Payback\t\t" << "Group\t" << RESET << endl;
-    cout << "-----------------------------------------------------------------------"
+//    cout << BOLDWHITE <<"Name\t\t" << "Phone Number\t" << "Expenses\t"
+//
+//    		<< "Payback\t" << "Group\t\t" << "Type" << RESET << endl;
+    cout << setw(0) << left
+        			 <<	BOLDWHITE << setw(16) << left
+        		     << "Name" << setw(16) << left
+        			 << "Phone Number" << setw(12) << left
+        			 << "Expenses" << setw(10) << left
+        	         << "Payback" << setw(13) << left
+        	         << "Group" << setw(16) << left
+        	         << "Type"
+        	         << RESET
+        	         << endl;
+    cout << "-------------------------------------------------------------------------"
         << endl;
 
     for(vector<Group>::iterator it = Groups.begin(); it != Groups.end(); ++it)
@@ -197,12 +208,14 @@ int main(int argc, char **argv)
     		// operate the payback first
     		tmp[i]->operatePayback(exp);
     		// display the values
-    		cout << colors[color_indexer]
-    		     << tmp[i]->getName() << "\t\t"
-    			 << tmp[i]->getPhoneNumber() << "\t\t"
-    			 << tmp[i]->getExpenses() << "\t\t"
-    	         << tmp[i]->getPayback() << "\t\t"
-    	         << tmp.getGroupName()
+    		cout << setw(0) << left
+    			 <<	colors[color_indexer] << setw(16) << left
+    		     << tmp[i]->getName() << setw(16) << left
+    			 << tmp[i]->getPhoneNumber() << setw(12) << left
+    			 << tmp[i]->getExpenses() << setw(10) << left
+    	         << tmp[i]->getPayback() << setw(13) << left
+    	         << tmp.getGroupName() << setw(16) << left
+    	         << tmp[i]->getType()
     	         << RESET
     	         << endl;
     	}
