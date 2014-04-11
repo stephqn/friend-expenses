@@ -23,3 +23,9 @@ Si les modifications sont lourdes, on fait le merge ensemble. Pour les petites m
 Conseil : faire un git pull origin master avant le pull request.
 
 NB : AVANT TOUTE MANIPULATION, FAIRE UNE COPIE DE VOTRE PROJET EN LOCAL. CE GUIDE EST EN VERSION EXPERIMENTALE
+
+
+MERCI AUSSI DE NE PAS FAIRE DE COMMIT SUR LES FICHIER ECLIPSE :
+.cproject 
+.gitignore 
+...
