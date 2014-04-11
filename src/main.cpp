@@ -47,6 +47,7 @@ int main(int argc, char **argv)
 
 	string toto;
 	toto = toto + toto;
+
     string name, phone, gn, tmp, currentLine, item;
     bool group_status;
 
