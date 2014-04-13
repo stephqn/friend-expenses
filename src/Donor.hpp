@@ -16,6 +16,9 @@ public:
 	Donor(const string name, const string phone, const float donation);
 	float getExpenses() const;
 	void setExpenses(const float expenses);
+
+	void setType();
+
 	void operatePayback(const float iExpensesPerPerson);
 	virtual ~Donor();
 

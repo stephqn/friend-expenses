@@ -50,12 +50,12 @@ TEST(Group, isAddingOk)
 	A->setName("P1");
 	A->setPhoneNumber("0680");
 	A->setExpenses(100);
-	A->setType("Person");
+	A->setType();
 
 	B->setName("P2");
 	B->setPhoneNumber("8071");
 	B->setExpenses(500);
-	B->setType("Person");
+	B->setType();
 
 	myGroup.push_back(A);
 	myGroup.push_back(B);
@@ -80,7 +80,7 @@ TEST(Group, isTotalExpensesOk)
 	C->setName("D1");
 	C->setPhoneNumber("0357");
 	C->setExpenses(300);
-	C->setType("Donor");
+	C->setType();
 	myGroup.push_back(C);
 	EXPECT_EQ(300, myGroup.totalExpenses());
 }

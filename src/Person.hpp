@@ -34,7 +34,7 @@ public:
     virtual void operatePayback(const float iExpensesPerPerson);
 
     const string& getType() const;
-    void setType(const string& type);
+    virtual void setType();
 
     /*
      * Getter & Setter to Group::_groupName
@@ -42,7 +42,6 @@ public:
      */
     void setGroupName(const string& name);
     const string& getGroupName() const;
-
 
 protected:
     string _name;

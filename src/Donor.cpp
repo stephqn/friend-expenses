@@ -30,6 +30,11 @@ void Donor::operatePayback(const float iExpensesPerPerson) {
     _payback = 0;
 }
 
+void Donor::setType()
+{
+	_type = "Donor";
+}
+
 void Donor::setExpenses(const float donation)
 {
 	_donation = donation;

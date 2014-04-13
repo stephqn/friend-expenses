@@ -34,7 +34,7 @@ TEST(Person, isSetterOk)
 	aPerson.setName("Deneb");
 	aPerson.setPhoneNumber("01234");
 	aPerson.setExpenses(205);
-	aPerson.setType("Person");
+	aPerson.setType();
 
 	EXPECT_EQ("Deneb", aPerson.getName());
 	EXPECT_EQ("01234", aPerson.getPhoneNumber());

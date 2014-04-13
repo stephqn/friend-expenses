@@ -19,10 +19,12 @@ Donor myDonor("Donor1", "0909", 200);
 TEST(Donor, isInitOk)
 {
 	myDonor.setGroupName("G1");
+	myDonor.setType();
 	EXPECT_EQ("Donor1", myDonor.getName());
 	EXPECT_EQ("0909", myDonor.getPhoneNumber());
 	EXPECT_EQ(200, myDonor.getExpenses());
 	EXPECT_EQ("G1", myDonor.getGroupName());
+	EXPECT_EQ("Donor", myDonor.getType());
 }
 
 TEST(Donor, isPaybackOk)

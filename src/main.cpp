@@ -96,7 +96,7 @@ int main(int argc, char **argv)
     			aPerson->setPhoneNumber(person[1]);
     			aPerson->setExpenses(atof(person[2].c_str()));
     			aPerson->setGroupName(person[3]);
-    			aPerson->setType(person[4]);
+    			aPerson->setType();
     		}
 //    		Donor *aDonor = new Donor;
     		if (person [4] == "Donor")
@@ -106,7 +106,7 @@ int main(int argc, char **argv)
     			aPerson->setPhoneNumber(person[1]);
     			aPerson->setExpenses(atof(person[2].c_str()));
     			aPerson->setGroupName(person[3]);
-    			aPerson->setType(person[4]);
+    			aPerson->setType();
     		}
     		if(list_group.size() == 0)
     			list_group.push_back(person[3]);

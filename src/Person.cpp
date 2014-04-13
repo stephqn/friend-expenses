@@ -76,18 +76,9 @@ void Person::operatePayback(const float iExpensesPerPerson) {
     _payback = _expenses - iExpensesPerPerson;
 }
 
-//const string& Person::getGroup() const
-//{
-//	return _groupName;
-//}
-//void Person::setGroup(const string& groupName)
-//{
-//	_groupName = groupName;
-//}
-
-void Person::setType(const string& type)
+void Person::setType()
 {
-	_type = type;
+	_type = "Person";
 }
 
 const string& Person::getType() const
