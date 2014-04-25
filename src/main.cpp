@@ -48,7 +48,7 @@ int main(int argc, char **argv)
     bool group_status;
 
     int nbPersPerGroup = 0, lineCounter = 0, nbDonor=0, color_indexer = 0;
-    float aExpensesPerPerson;
+    float aExpensesPerPerson = 0;
 
     vector<string>  list_group;
     vector<Person*> vPerson;
@@ -56,17 +56,18 @@ int main(int argc, char **argv)
 
     const char* colors[NB_MAX_COLOR] = {BOLDWHITE, BOLDRED, BOLDGREEN, BOLDBLUE, BOLDMAGENTA, BOLDCYAN, BOLDBLACK};
 	/*---------------------------------*/
+
     if(argv[1] == NULL)
     {
     	cout << "\nNo input file specified... Exiting" << endl;
     	return 1;
     }
     cout << "\nInput data file : " << argv[1] << endl;
-    ifstream myFile;
+    fstream myFile;
     Person *aPerson;
     try
     {
-    	myFile.open(argv[1]);
+    	myFile.open(argv[1], ios::in | ios::out | ios::app);
     	if(!myFile) myFile.exceptions(ifstream::failbit); // Set flag fail bit for exceptions
     }
     catch(ios_base::failure &e)
@@ -74,11 +75,17 @@ int main(int argc, char **argv)
     	cout << "Exception caught while opening your file : " << endl;
     	cout << e.what() << endl;
     }
+    if(argc > 2) /* TODO implement arguments handling */
+    {
+    	string COMMA = ",";
+    	string append = argv[2] + COMMA + argv[3] + COMMA + argv[4] + COMMA + argv[5] + COMMA + argv[6] + "\n";
+    	myFile << append;
+    	myFile.seekg(0); // reposition ourselves at the beginning
+    }
     while(1)
     {
-
     	getline(myFile, currentLine);
-    	if(lineCounter != 0)
+    	if(lineCounter != 0) //Do not read first line
     	{
     		if(myFile.eof()) break;
     		stringstream ss(currentLine.c_str());
@@ -87,26 +94,15 @@ int main(int argc, char **argv)
     		{
     			person.push_back(item);
     		}
-//    		Person *aPerson = new Person;
-    		/* TODO modifier boucle if + déclaration *person *donor */
     		if(person[4] == "Person")
     		{
-    			aPerson = new Person;
-    			aPerson->setName(person[0]);
-    			aPerson->setPhoneNumber(person[1]);
-    			aPerson->setExpenses(atof(person[2].c_str()));
-    			aPerson->setGroupName(person[3]);
-    			aPerson->setType();
+    			aPerson = new Person(person[0], person[1], atof(person[2].c_str()), person[3]);
+//    			aPerson->setType();
     		}
-//    		Donor *aDonor = new Donor;
     		if (person [4] == "Donor")
     		{
-    			aPerson = new Donor;
-    			aPerson->setName(person[0]);
-    			aPerson->setPhoneNumber(person[1]);
-    			aPerson->setExpenses(atof(person[2].c_str()));
-    			aPerson->setGroupName(person[3]);
-    			aPerson->setType();
+    			aPerson = new Donor(person[0], person[1], atof(person[2].c_str()), person[3]);
+//    			aPerson->setType();
     		}
     		if(list_group.size() == 0)
     			list_group.push_back(person[3]);
@@ -124,17 +120,11 @@ int main(int argc, char **argv)
     		{
     			list_group.push_back(person[3]); // contient le nom des groupes
     		}
-//    		if(person[4] == "Person")
-    			vPerson.push_back(aPerson); // contient toutes les personnes
-//    		else
-//    		{
-//    			Person* transDonor = dynamic_cast<Person*>(aDonor);
-//    			vPerson.push_back(aDonor);
-//    		}
+    		vPerson.push_back(aPerson); // contient toutes les personnes
     	}
     	lineCounter++;
-
     }
+
 #ifdef DEBUG
     for(int i=0; i<vPerson.size();i++)
     {
@@ -147,6 +137,7 @@ int main(int argc, char **argv)
 #endif
 
     //trier les donnees lues dans le csv
+    //associer chaque personne a son groupe
     for(unsigned int i=0; i<list_group.size(); i++)
     {
     	Group aGroup;
@@ -174,6 +165,7 @@ int main(int argc, char **argv)
     /*
      *  Prepare the output
      */
+
     cout << endl;
     for(unsigned int i=0; i<Groups.size(); i++)
     {
@@ -183,9 +175,6 @@ int main(int argc, char **argv)
     	cout << endl;
     }
 
-//    cout << BOLDWHITE <<"Name\t\t" << "Phone Number\t" << "Expenses\t"
-//
-//    		<< "Payback\t" << "Group\t\t" << "Type" << RESET << endl;
     cout << setw(0) << left
         			 <<	BOLDWHITE << setw(16) << left
         		     << "Name" << setw(16) << left
@@ -225,5 +214,7 @@ int main(int argc, char **argv)
     		color_indexer++;
     }
     cout << endl;
+    myFile.close();
+    delete aPerson;
     return 0;
 }
