@@ -9,6 +9,7 @@
 #include "Person.hpp"
 #include "Group.hpp"
 #include "Donor.hpp"
+#include "Csv.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -44,123 +45,33 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	/********* LOCAL VARIABLES *********/
-    string name, phone, gn, tmp, currentLine, item;
-    bool group_status;
-
-    int nbPersPerGroup = 0, lineCounter = 0, nbDonor=0, color_indexer = 0;
+   
+    int color_indexer = 0;
     float aExpensesPerPerson = 0;
 
-    vector<string>  list_group;
-    vector<Person*> vPerson;
     vector<Group> Groups;
 
     const char* colors[NB_MAX_COLOR] = {BOLDWHITE, BOLDRED, BOLDGREEN, BOLDBLUE, BOLDMAGENTA, BOLDCYAN, BOLDBLACK};
 	/*---------------------------------*/
-
+	Csv csv;
     if(argv[1] == NULL)
     {
     	cout << "\nNo input file specified... Exiting" << endl;
     	return 1;
     }
-    cout << "\nInput data file : " << argv[1] << endl;
-    fstream myFile;
-    Person *aPerson;
-    try
-    {
-    	myFile.open(argv[1], ios::in | ios::out | ios::app);
-    	if(!myFile) myFile.exceptions(ifstream::failbit); // Set flag fail bit for exceptions
-    }
-    catch(ios_base::failure &e)
-    {
-    	cout << "Exception caught while opening your file : " << endl;
-    	cout << e.what() << endl;
-    }
-    if(argc > 2) /* TODO implement arguments handling */
-    {
-    	string COMMA = ",";
-    	string append = argv[2] + COMMA + argv[3] + COMMA + argv[4] + COMMA + argv[5] + COMMA + argv[6] + "\n";
-    	myFile << append;
-    	myFile.seekg(0); // reposition ourselves at the beginning
-    }
-    while(1)
-    {
-    	getline(myFile, currentLine);
-    	if(lineCounter != 0) //Do not read first line
-    	{
-    		if(myFile.eof()) break;
-    		stringstream ss(currentLine.c_str());
-    		vector<string> person;
-    		while (std::getline(ss, item, ','))
-    		{
-    			person.push_back(item);
-    		}
-    		if(person[4] == "Person")
-    		{
-    			aPerson = new Person(person[0], person[1], atof(person[2].c_str()), person[3]);
-//    			aPerson->setType();
-    		}
-    		if (person [4] == "Donor")
-    		{
-    			aPerson = new Donor(person[0], person[1], atof(person[2].c_str()), person[3]);
-//    			aPerson->setType();
-    		}
-    		if(list_group.size() == 0)
-    			list_group.push_back(person[3]);
-    		for(unsigned int i=0; i<list_group.size(); i++)
-    		{
-    			if(list_group[i] == person[3]) //group existe deja
-    			{
-    				group_status = true;
-    				break;
-    			}
-    			else
-    				group_status = false;
-    		}
-    		if(!group_status)
-    		{
-    			list_group.push_back(person[3]); // contient le nom des groupes
-    		}
-    		vPerson.push_back(aPerson); // contient toutes les personnes
-    	}
-    	lineCounter++;
-    }
+    csv.readCSV(string(argv[1]));
+    csv.createGroup(Groups);
 
 #ifdef DEBUG
     for(int i=0; i<vPerson.size();i++)
     {
-    	cout << vPerson[i].getName() << vPerson[i].getPhoneNumber() << endl;
+    	cout << vPerson[i]->getName() << vPerson[i]->getPhoneNumber() << endl;
 
     }
 
     for(int i=0; i<list_group.size(); i++)
     	cout << list_group[i] << endl;
 #endif
-
-    //trier les donnees lues dans le csv
-    //associer chaque personne a son groupe
-    for(unsigned int i=0; i<list_group.size(); i++)
-    {
-    	Group aGroup;
-    	aGroup.setGroupName(list_group[i]);
-    	for(unsigned int j=0; j<vPerson.size(); j++)
-    	{
-    		if(list_group[i] == vPerson[j]->getGroupName())
-    		{
-    			//personne par groupe
-    			nbPersPerGroup++;
-    			aGroup.push_back(vPerson[j]);
-    			if(vPerson[j]->getType() == "Donor")
-    			{
-    				nbDonor++;
-    			}
-    		}
-    	}
-    	//remplir vecteur de group
-    	aGroup.setNbPersGroup(nbPersPerGroup-nbDonor);
-    	nbPersPerGroup = 0;
-    	nbDonor = 0;
-    	Groups.push_back(aGroup);
-    }
 
     /*
      *  Prepare the output
@@ -174,7 +85,6 @@ int main(int argc, char **argv)
     	cout << "Average expenses per person : " << BOLDYELLOW << aExpensesPerPerson << RESET << endl;
     	cout << endl;
     }
-
     cout << setw(0) << left
         			 <<	BOLDWHITE << setw(16) << left
         		     << "Name" << setw(16) << left
@@ -214,7 +124,5 @@ int main(int argc, char **argv)
     		color_indexer++;
     }
     cout << endl;
-    myFile.close();
-    delete aPerson;
     return 0;
 }
