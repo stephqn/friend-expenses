@@ -32,15 +32,12 @@ void Csv::openCSV(string myFileName)
 		cout << "Exception caught while opening your file : " << endl;
 		cout << e.what() << endl;
 	}
-
-	cout << "nom du fichier : " << myFileName <<  endl;
-
 }
 
 void Csv::writeCSV(string person)
 {
 	_myFile << person;
-	_myFile.seekp(0,ios::end); // reposition ourselves at the beginning
+	_myFile.seekp(0); // reposition ourselves at the beginning
 }
 
 void Csv::readCSV()

@@ -75,7 +75,6 @@ int main(int argc, char **argv)
     }
 
     csv.readCSV();
-
     csv.createGroup(Groups);
 
 #ifdef DEBUG
