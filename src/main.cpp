@@ -45,25 +45,19 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	/********* LOCAL VARIABLES *********/
-<<<<<<< HEAD
 
-
-    int color_indexer = 0;
-    float aExpensesPerPerson;
-
-=======
-   
     int color_indexer = 0;
     float aExpensesPerPerson = 0;
 
->>>>>>> upstream/master
+
     vector<Group> Groups;
 
     const char* colors[NB_MAX_COLOR] = {BOLDWHITE, BOLDRED, BOLDGREEN, BOLDBLUE, BOLDMAGENTA, BOLDCYAN, BOLDBLACK};
 	/*---------------------------------*/
-<<<<<<< HEAD
+
 
     Csv csv;
+
     if (argv[1] == NULL)
     {
     	cout << "\nNo input file specified... Exiting" << endl;
@@ -71,43 +65,19 @@ int main(int argc, char **argv)
     }
 
     csv.openCSV(string(argv[1]));
+
     if(argc > 2) /* TODO implement arguments handling */
     {
     	string COMMA = ",";
     	string append;
-    	//cin >> modif;
     	append = argv[2] + COMMA + argv[3] + COMMA + argv[4] + COMMA + argv[5] + COMMA + argv[6] + "\n";
-
     	csv.writeCSV(append);
     }
-
-   /*{
-    	string COMMA = ",";
-    	string append = argv[2] + COMMA + argv[3] + COMMA + argv[4] + COMMA + argv[5] + COMMA + argv[6] + "\n";
-    	myFile << append;
-    	myFile.seekg(0); // reposition ourselves at the beginning
-    	}
-
-    */
-
-    //csv.readCSV(string(argv[1]));
-
 
     csv.readCSV();
 
     csv.createGroup(Groups);
 
-=======
-	Csv csv;
-    if(argv[1] == NULL)
-    {
-    	cout << "\nNo input file specified... Exiting" << endl;
-    	return 1;
-    }
-    csv.readCSV(string(argv[1]));
-    csv.createGroup(Groups);
-
->>>>>>> upstream/master
 #ifdef DEBUG
     for(int i=0; i<vPerson.size();i++)
     {
