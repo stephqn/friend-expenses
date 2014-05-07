@@ -16,7 +16,7 @@ class Person
 {
 public:
     Person();
-    Person(const string name, const string phone, const float expenses, const string type);
+    Person(const string name, const string phone, const float expenses, const string gName);
     virtual ~Person();
 
     const string& getName() const;

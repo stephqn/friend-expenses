@@ -45,15 +45,23 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	/********* LOCAL VARIABLES *********/
+<<<<<<< HEAD
 
 
     int color_indexer = 0;
     float aExpensesPerPerson;
 
+=======
+   
+    int color_indexer = 0;
+    float aExpensesPerPerson = 0;
+
+>>>>>>> upstream/master
     vector<Group> Groups;
 
     const char* colors[NB_MAX_COLOR] = {BOLDWHITE, BOLDRED, BOLDGREEN, BOLDBLUE, BOLDMAGENTA, BOLDCYAN, BOLDBLACK};
 	/*---------------------------------*/
+<<<<<<< HEAD
 
     Csv csv;
     if (argv[1] == NULL)
@@ -89,6 +97,17 @@ int main(int argc, char **argv)
 
     csv.createGroup(Groups);
 
+=======
+	Csv csv;
+    if(argv[1] == NULL)
+    {
+    	cout << "\nNo input file specified... Exiting" << endl;
+    	return 1;
+    }
+    csv.readCSV(string(argv[1]));
+    csv.createGroup(Groups);
+
+>>>>>>> upstream/master
 #ifdef DEBUG
     for(int i=0; i<vPerson.size();i++)
     {

@@ -17,15 +17,17 @@ Person::Person() :
 	_pGroup = new Group;
 }
 
-Person::Person(const string name, const string phone, const float expenses, const string type)
+Person::Person(const string name, const string phone, const float expenses, const string gName)
 {
 	_name = name;
 	_phoneNumber = phone;
 	_expenses = expenses;
 	_payback = 0;
-	_type = type;
 	_pGroup = new Group;
+	this->setGroupName(gName);
+	this->setType();
 }
+
 Person::~Person()
 {
 	delete _pGroup;

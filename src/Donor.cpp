@@ -15,11 +15,13 @@ Donor::Donor()
 	_donation = 0;
 }
 
-Donor::Donor(const string name, const string phone, const float donation)
+Donor::Donor(const string name, const string phone, const float donation, const string gName)
 {
 	_name = name;
 	_phoneNumber = phone;
 	_donation = donation;
+	this->setGroupName(gName);
+	this->setType();
 }
 
 Donor::~Donor()
