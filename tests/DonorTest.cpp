@@ -14,7 +14,7 @@
 
 using namespace std;
 
-Donor myDonor("Donor1", "0909", 200);
+Donor myDonor("Donor1", "0909", 200, "G1");
 
 TEST(Donor, isInitOk)
 {
