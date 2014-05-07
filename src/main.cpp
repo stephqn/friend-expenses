@@ -61,7 +61,32 @@ int main(int argc, char **argv)
     	cout << "\nNo input file specified... Exiting" << endl;
     	return 0;
     }
-    csv.readCSV(string(argv[1]));
+
+    csv.openCSV(string(argv[1]));
+    if(argc > 2) /* TODO implement arguments handling */
+    {
+    	string COMMA = ",";
+    	string append;
+    	//cin >> modif;
+    	append = argv[2] + COMMA + argv[3] + COMMA + argv[4] + COMMA + argv[5] + COMMA + argv[6] + "\n";
+
+    	csv.writeCSV(append);
+    }
+
+   /*{
+    	string COMMA = ",";
+    	string append = argv[2] + COMMA + argv[3] + COMMA + argv[4] + COMMA + argv[5] + COMMA + argv[6] + "\n";
+    	myFile << append;
+    	myFile.seekg(0); // reposition ourselves at the beginning
+    	}
+
+    */
+
+    //csv.readCSV(string(argv[1]));
+
+
+    csv.readCSV();
+
     csv.createGroup(Groups);
 
 #ifdef DEBUG

@@ -9,9 +9,11 @@
 #define CSV_HPP_
 
 #include <stdio.h>
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include <sstream>
 #include <limits>
 #include <vector>
@@ -29,7 +31,10 @@ public:
 	virtual ~Csv();
 
 	void setName(const string& iNameFile);
-	void readCSV(string myFileName);
+	void openCSV(string myFileName);
+	void readCSV();
+	//void writeCSV(string append, string argument[]);
+	void writeCSV(string argument);
 	void createGroup (vector <Group>& groups);
 
 private :
@@ -38,6 +43,7 @@ private :
 	ifstream _myFile;
 	vector<Person*> _vPerson;
 	vector<string>  _list_group;
+	const char* file;
 	int _nbPersPerGroup;
 };
 

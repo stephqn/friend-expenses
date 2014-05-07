@@ -17,18 +17,18 @@ Csv::~Csv()
 {
 }
 
-void Csv::readCSV(string myFileName)
+void Csv::openCSV(string myFileName)
 {
-	bool group_status;
-	int lineCounter(0);
-	string currentLine;
-	string item;
+	//const char* file;
 
 	cout << "\nInput data file : " << myFileName << endl;
 	ifstream _myFile;
 	try
 	{
-		_myFile.open(myFileName.c_str());
+
+
+		//_myFile.open();// file, ios::in | ios::out | ios::app);
+		_myFile.open(myFileName.c_str(), ios::in | ios::out | ios::app);
 		if (!_myFile)
 			_myFile.exceptions(ifstream::failbit); // Set flag failbit for exceptions
 	}
@@ -37,6 +37,52 @@ void Csv::readCSV(string myFileName)
 		cout << "Exception caught while opening your file : " << endl;
 		cout << e.what() << endl;
 	}
+
+	cout << "nom du fichier : " << myFileName <<  endl;
+
+}
+
+
+//void Csv::writeCSV(string append, string argument[])
+void Csv::writeCSV(string argument)
+{
+	ofstream _myFile;
+
+	//string COMMA = ",";
+	//append = argv[2] + COMMA + argv[3] + COMMA + argv[4] + COMMA + argv[5] + COMMA + argv[6] + "\n";
+	//string append;
+	//append = argument[2] + COMMA + argument[3] + COMMA + argument[4] + COMMA + argument[5] + COMMA + argument[6] + "\n";
+
+	_myFile << argument;
+	_myFile.seekp(0,ios::end); // reposition ourselves at the beginning
+
+}
+
+void Csv::readCSV()
+{
+	bool group_status;
+	int lineCounter(0);
+	string currentLine;
+	string item;
+	/*const char* file;
+
+	cout << "\nInput data file : " << myFileName << endl;
+	ifstream _myFile;
+	try
+	{
+		//_myFile.open(myFileName.c_str());// file, ios::in | ios::out | ios::app);
+		_myFile.open(file, ios::in | ios::out | ios::app);
+		if (!_myFile)
+			_myFile.exceptions(ifstream::failbit); // Set flag failbit for exceptions
+	}
+	catch (ios_base::failure &e)
+	{
+		cout << "Exception caught while opening your file : " << endl;
+		cout << e.what() << endl;
+	}
+	*/
+
+
 	while (1)
 	{
 		vector<string> person;
@@ -45,12 +91,15 @@ void Csv::readCSV(string myFileName)
 
 		if (lineCounter != 0)
 		{
+			cout << "nom du fichier : " <<  endl;
+
 			if (_myFile.eof())
 				break;
 			stringstream ss(currentLine.c_str());
 
 			while (std::getline(ss, item, ',')) {
 				person.push_back(item);
+
 			}
 			Person *aPerson = new Person;
 			if (person[4] == "Person") {
@@ -90,6 +139,8 @@ void Csv::readCSV(string myFileName)
 		lineCounter++;
 	}
 }
+
+
 
 void Csv::createGroup(vector<Group>& Groups)
 {
