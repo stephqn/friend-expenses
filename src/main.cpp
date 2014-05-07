@@ -45,21 +45,37 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	/********* LOCAL VARIABLES *********/
-   
+
     int color_indexer = 0;
     float aExpensesPerPerson = 0;
+
 
     vector<Group> Groups;
 
     const char* colors[NB_MAX_COLOR] = {BOLDWHITE, BOLDRED, BOLDGREEN, BOLDBLUE, BOLDMAGENTA, BOLDCYAN, BOLDBLACK};
 	/*---------------------------------*/
-	Csv csv;
-    if(argv[1] == NULL)
+
+
+    Csv csv;
+
+    if (argv[1] == NULL)
     {
     	cout << "\nNo input file specified... Exiting" << endl;
-    	return 1;
+    	return 0;
     }
-    csv.readCSV(string(argv[1]));
+
+    csv.openCSV(string(argv[1]));
+
+    if(argc > 2) /* TODO implement arguments handling */
+    {
+    	string COMMA = ",";
+    	string append;
+    	append = argv[2] + COMMA + argv[3] + COMMA + argv[4] + COMMA + argv[5] + COMMA + argv[6] + "\n";
+    	csv.writeCSV(append);
+    }
+
+    csv.readCSV();
+
     csv.createGroup(Groups);
 
 #ifdef DEBUG
@@ -78,6 +94,7 @@ int main(int argc, char **argv)
      */
 
     cout << endl;
+
     for(unsigned int i=0; i<Groups.size(); i++)
     {
     	cout << "Total expenses for group " << BOLDBLUE << Groups[i].getGroupName() << " : " << BOLDRED << Groups[i].totalExpenses() << RESET <<endl;

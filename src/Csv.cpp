@@ -17,18 +17,13 @@ Csv::~Csv()
 {
 }
 
-void Csv::readCSV(string myFileName)
+void Csv::openCSV(string myFileName)
 {
-	bool group_status;
-	int lineCounter(0);
-	string currentLine;
-	string item;
-
 	cout << "\nInput data file : " << myFileName << endl;
-	ifstream _myFile;
+
 	try
 	{
-		_myFile.open(myFileName.c_str());
+		_myFile.open(myFileName.c_str(), ios::in | ios::out | ios::app);
 		if (!_myFile)
 			_myFile.exceptions(ifstream::failbit); // Set flag failbit for exceptions
 	}
@@ -37,6 +32,24 @@ void Csv::readCSV(string myFileName)
 		cout << "Exception caught while opening your file : " << endl;
 		cout << e.what() << endl;
 	}
+
+	cout << "nom du fichier : " << myFileName <<  endl;
+
+}
+
+void Csv::writeCSV(string person)
+{
+	_myFile << person;
+	_myFile.seekp(0,ios::end); // reposition ourselves at the beginning
+}
+
+void Csv::readCSV()
+{
+	bool group_status;
+	int lineCounter(0);
+	string currentLine;
+	string item;
+
 	while (1)
 	{
 		vector<string> person;
@@ -51,6 +64,7 @@ void Csv::readCSV(string myFileName)
 
 			while (std::getline(ss, item, ',')) {
 				person.push_back(item);
+
 			}
 			Person *aPerson = new Person;
 			if (person[4] == "Person") {
@@ -90,6 +104,7 @@ void Csv::readCSV(string myFileName)
 		lineCounter++;
 	}
 }
+
 
 void Csv::createGroup(vector<Group>& Groups)
 {
