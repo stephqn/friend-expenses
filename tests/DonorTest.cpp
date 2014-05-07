@@ -18,7 +18,6 @@ Donor myDonor("Donor1", "0909", 200, "G1");
 
 TEST(Donor, isInitOk)
 {
-	myDonor.setGroupName("G1");
 	myDonor.setType();
 	EXPECT_EQ("Donor1", myDonor.getName());
 	EXPECT_EQ("0909", myDonor.getPhoneNumber());
