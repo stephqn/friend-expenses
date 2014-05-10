@@ -15,12 +15,27 @@ Arg::~Arg()
 {
 }
 
-void help()
+void help()//Gestion de l'ouverture et de l'affichage de l'aide
 {
-	cout << "\n BLABLABLA" << endl;
+	char str;
+
+	FILE * pFile;
+	pFile = fopen ("help.txt","r");
+	if (pFile!=NULL)
+	{
+		while(fscanf(pFile, "%c", &str)!=EOF)
+		{
+			cout << str;
+		}
+
+	  fclose (pFile);
+	}
+	else
+		cout << "\n Failed to load Help, pls reinstall the software or contact the support at 0820 456 789" << endl;
 }
 
-int Arg::readArg(int nbrArg, char **myArg, int *state)
+
+void Arg::readArg(int nbrArg, char **myArg, int *state, string *newdata)//Gestion des arguments
 {
 	/*
 	cout << "\n nbrArg:" << nbrArg << endl;
@@ -29,53 +44,80 @@ int Arg::readArg(int nbrArg, char **myArg, int *state)
 		cout << "\n myArg:" << myArg[i] << endl;
 	 */
 
+	/*Pour ajouter une commande, aller dans le nombre d'agument qui correspond
+	 * et ajouter la fonction souhaitée.
+	 */
+
 	switch ( nbrArg )
 	{
-	  case 1:
-		  cout << "\nNo request mentioned. \nOpenning Software Help..." << endl;
+	  case 1://Si pas d'argument
+		  cout << "\nNo request mentioned. \nOpenning Software Help...\n" << endl;
 		  help();
 		  *state=1;
 	  break;
 
-	  case 2:
+	  case 2://Si Help ou File (sans nom de fichier)
 		  if(string(myArg[1])=="--help")
 		  {
-			  cout << "\nOpenning Software Help" << endl;
+			  cout << "\nOpenning Software Help\n" << endl;
 			  help();
 			  *state=1;
 			  break;
 		  }
-		  if(string(myArg[1])=="--file")
+		  else
 		  {
-			  cout << "\nError: no file mentioned." << endl;
-			  *state=1;
+			  if(string(myArg[1])=="--file")
+			  {
+				  cout << "\nError: no file mentioned." << endl;
+				  *state=1;
+			  }
+			  else
+			  {
+				  cout << "\nError Arg" << endl;
+				  *state=1;
+			  }
+
 		  }
 	  break;
 
-	  case 3:
+	  case 3://Si overture de fichier
 	  		  if(string(myArg[1])=="--file")
 	  		  {
 	  			  cout << "\nOpenning file" << endl;
 	  		  }
+	  		  else
+			  {
+				  cout << "\nError Arg" << endl;
+				  *state=1;
+			  }
 	  break;
 
-	  case 13:
-		  if((string(myArg[1])=="--name")&&(string(myArg[3])=="--phone")&&(string(myArg[5])=="--expense")&&(string(myArg[7])=="--group")&&(string(myArg[9])=="--donor")&&(string(myArg[11])=="--file"))
+	  case 13://Si ajout de ligne dans csv
+		  if((string(myArg[1])=="--name")&&(string(myArg[3])=="--phone")&&(string(myArg[5])=="--expense")&&(string(myArg[7])=="--group")&&(string(myArg[9])=="--type")&&(string(myArg[11])=="--file"))
 		  {
 			  cout << "\nCreation Nouvelle ligne" << endl;
+			  *newdata=string(myArg[2])+','+string(myArg[4])+','+string(myArg[6])+','+string(myArg[8])+','+string(myArg[10]);
+			  //cout << *newdata << endl;
+		  }
+		  else
+		  {
+			  cout << "\nError: options --name, --phone, --expense, --group and --type must be strictly used together." << endl;
+			  *state=1;
 		  }
 	  break;
 
-	  default:
-	    cout<<"\nError: no file mentioned."<< endl;
-		*state=1;
+	  default://Defaut
+		  if((string(myArg[1])=="--name")||(string(myArg[1])=="--phone")||(string(myArg[1])=="--expense")||(string(myArg[1])=="--group")||(string(myArg[1])=="--type"))
+		  {
+			  cout << "\nError: options --name, --phone, --expense, --group and --type must be strictly used together." << endl;
+			  *state=1;
+		  }
+		  else
+		  {
+			  cout<<"\nError Arg"<< endl;
+			  *state=1;
+		  }
 	    break;
 	  }
-
-/*	if(myArg[1] == NULL)
-	{
-		cout << "\nNo input file specified... " << endl;
-	    *state=1;
-	}*/
 
 }

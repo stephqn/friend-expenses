@@ -28,7 +28,7 @@ public:
 	Arg();
 	virtual ~Arg();
 
-	int readArg(int nbrArg, char **myArg, int *state);
+	void readArg(int nbrArg, char **myArg, int *state, string *newdata);
 
 };
 
