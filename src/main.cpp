@@ -10,6 +10,7 @@
 #include "Group.hpp"
 #include "Donor.hpp"
 #include "Csv.hpp"
+#include "Arg.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -48,18 +49,34 @@ int main(int argc, char **argv)
    
     int color_indexer = 0;
     float aExpensesPerPerson = 0;
+    int state=0;
 
     vector<Group> Groups;
 
     const char* colors[NB_MAX_COLOR] = {BOLDWHITE, BOLDRED, BOLDGREEN, BOLDBLUE, BOLDMAGENTA, BOLDCYAN, BOLDBLACK};
 	/*---------------------------------*/
 	Csv csv;
+	Arg arg;
+
+	arg.readArg(argc,argv,&state);//Gestion des arguments
+
+	if(state==1)
+	{
+		cout << "\nExiting" << endl;
+		return 1;
+	}
+
+
+/*
     if(argv[1] == NULL)
     {
     	cout << "\nNo input file specified... Exiting" << endl;
     	return 1;
     }
-    csv.readCSV(string(argv[1]));
+    */
+
+
+    csv.readCSV(string(argv[2]));
     csv.createGroup(Groups);
 
 #ifdef DEBUG
