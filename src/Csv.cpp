@@ -45,7 +45,10 @@ void Csv::openCSV(string myFileName)
 		exit(1);
 	}
 }
-
+void Csv::closeCsv()
+{
+	_myFile.close();
+}
 void Csv::writeCSV(string person)
 {
 	_myFile << person;
