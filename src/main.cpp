@@ -49,7 +49,6 @@ int main(int argc, char **argv)
    
     int color_indexer = 0, state=0;
     float aExpensesPerPerson = 0;
-    string newdata="Empty";
 
     vector<Group> Groups;
 
@@ -58,7 +57,7 @@ int main(int argc, char **argv)
 	Csv csv;
 	Arg arg;
 
-	arg.readArg(argc,argv,&state,&newdata);//Gestion des arguments
+	arg.readArg(argc,argv,&state);//Gestion des arguments
 
 	if(state==1)//Fin du programme
 	{

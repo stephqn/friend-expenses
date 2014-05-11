@@ -35,8 +35,10 @@ void help()//Gestion de l'ouverture et de l'affichage de l'aide
 }
 
 
-void Arg::readArg(int nbrArg, char **myArg, int *state, string *newdata)//Gestion des arguments
+void Arg::readArg(int nbrArg, char **myArg, int *state)//Gestion des arguments
 {
+    string newdata="Empty";
+
 	/*
 	cout << "\n nbrArg:" << nbrArg << endl;
 
@@ -74,10 +76,17 @@ void Arg::readArg(int nbrArg, char **myArg, int *state, string *newdata)//Gestio
 			  }
 			  else
 			  {
-				  cout << "\nError Arg" << endl;
-				  *state=1;
+				  if((string(myArg[1])=="--name")||(string(myArg[1])=="--phone")||(string(myArg[1])=="--expense")||(string(myArg[1])=="--group")||(string(myArg[1])=="--type"))
+				  {
+					  cout << "\nError: options --name, --phone, --expense, --group and --type must be strictly used together." << endl;
+					  *state=1;
+				  }
+				  else
+				  {
+					  cout << "\nError Arg" << endl;
+					  *state=1;
+				  }
 			  }
-
 		  }
 	  break;
 
@@ -88,8 +97,16 @@ void Arg::readArg(int nbrArg, char **myArg, int *state, string *newdata)//Gestio
 	  		  }
 	  		  else
 			  {
-				  cout << "\nError Arg" << endl;
-				  *state=1;
+	  			  if((string(myArg[1])=="--name")||(string(myArg[1])=="--phone")||(string(myArg[1])=="--expense")||(string(myArg[1])=="--group")||(string(myArg[1])=="--type"))
+	  			  {
+					  cout << "\nError: options --name, --phone, --expense, --group and --type must be strictly used together." << endl;
+					  *state=1;
+	  			  }
+	  			  else
+	  			  {
+					  cout << "\nError Arg" << endl;
+					  *state=1;
+	  			  }
 			  }
 	  break;
 
@@ -97,8 +114,8 @@ void Arg::readArg(int nbrArg, char **myArg, int *state, string *newdata)//Gestio
 		  if((string(myArg[1])=="--name")&&(string(myArg[3])=="--phone")&&(string(myArg[5])=="--expense")&&(string(myArg[7])=="--group")&&(string(myArg[9])=="--type")&&(string(myArg[11])=="--file"))
 		  {
 			  cout << "\nCreation Nouvelle ligne" << endl;
-			  *newdata=string(myArg[2])+','+string(myArg[4])+','+string(myArg[6])+','+string(myArg[8])+','+string(myArg[10]);
-			  //cout << *newdata << endl;
+			  newdata=string(myArg[2])+','+string(myArg[4])+','+string(myArg[6])+','+string(myArg[8])+','+string(myArg[10]);
+			  //cout << newdata << endl;
 		  }
 		  else
 		  {
