@@ -20,7 +20,7 @@ void help()//Gestion de l'ouverture et de l'affichage de l'aide
 	char str;
 
 	FILE * pFile;
-	pFile = fopen ("help.txt","r");
+	pFile = fopen ("../src/help.txt","r");
 	if (pFile!=NULL)
 	{
 		while(fscanf(pFile, "%c", &str)!=EOF)
@@ -44,6 +44,7 @@ void Arg::readArg(int nbrArg, char **myArg, int *state, string *newdata)//Gestio
 		cout << "\n myArg:" << myArg[i] << endl;
 	 */
 
+
 	/*Pour ajouter une commande, aller dans le nombre d'agument qui correspond
 	 * et ajouter la fonction souhaitée.
 	 */
@@ -52,7 +53,7 @@ void Arg::readArg(int nbrArg, char **myArg, int *state, string *newdata)//Gestio
 	{
 	  case 1://Si pas d'argument
 		  cout << "\nNo request mentioned. \nOpenning Software Help...\n" << endl;
-		  help();
+		  help();//Ouverture de l'help
 		  *state=1;
 	  break;
 
@@ -60,7 +61,7 @@ void Arg::readArg(int nbrArg, char **myArg, int *state, string *newdata)//Gestio
 		  if(string(myArg[1])=="--help")
 		  {
 			  cout << "\nOpenning Software Help\n" << endl;
-			  help();
+			  help();//Ouverture de l'help
 			  *state=1;
 			  break;
 		  }
