@@ -61,7 +61,6 @@ int main(int argc, char **argv)
     Arg arg;
 
 	arg.readArg(argc,argv,&state, &newdata);//Gestion des arguments
-
 	switch(state)
 	{
 		case ERROR:break;
@@ -107,21 +106,20 @@ int main(int argc, char **argv)
 
     for(vector<Group>::iterator it = Groups.begin(); it != Groups.end(); ++it)
     {
-    	Group tmp = *it;
     	int exp = it->expensesPerPerson();
-    	for (size_t i=0; i < tmp.size(); ++i)
+    	for (size_t i=0; i < it->size(); ++i)
     	{
     		// operate the payback first
-    		tmp[i]->operatePayback(exp);
+    		(*it)[i]->operatePayback(exp);
     		// display the values
     		cout << setw(0) << left
     			 <<	colors[color_indexer] << setw(16) << left
-    		     << tmp[i]->getName() << setw(16) << left
-    			 << tmp[i]->getPhoneNumber() << setw(12) << left
-    			 << tmp[i]->getExpenses() << setw(10) << left
-    	         << tmp[i]->getPayback() << setw(13) << left
-    	         << tmp.getGroupName() << setw(16) << left
-    	         << tmp[i]->getType()
+    		     << (*it)[i]->getName() << setw(16) << left
+    			 << (*it)[i]->getPhoneNumber() << setw(12) << left
+    			 << (*it)[i]->getExpenses() << setw(10) << left
+    	         << (*it)[i]->getPayback() << setw(13) << left
+    	         << it->getGroupName() << setw(16) << left
+    	         << (*it)[i]->getType()
     	         << RESET
     	         << endl;
     	}
