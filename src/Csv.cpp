@@ -15,22 +15,34 @@ Csv::Csv() : _nbPersPerGroup (0)
 
 Csv::~Csv()
 {
+	_myFile.close();
+}
+
+bool Csv::checkFile(string myFileName)
+{
+	_myFile.open(myFileName.c_str(), ios::in);
+	if(_myFile)
+	{
+		_myFile.close();
+		return true;
+	}
+	else
+		return false;
 }
 
 void Csv::openCSV(string myFileName)
 {
 	cout << "\nInput data file : " << myFileName << endl;
-
-	try
+	if (checkFile(myFileName))
 	{
 		_myFile.open(myFileName.c_str(), ios::in | ios::out | ios::app);
-		if (!_myFile)
-			_myFile.exceptions(ifstream::failbit); // Set flag failbit for exceptions
 	}
-	catch (ios_base::failure &e)
+	else
 	{
-		cout << "Exception caught while opening your file : " << endl;
-		cout << e.what() << endl;
+		cout << "Exception caught while opening your file" << endl;
+		cout << "Please check file name or syntax." << endl;
+		cout << "Use \"./friend-expenses --help\" for help" << endl;
+		exit(1);
 	}
 }
 

@@ -35,6 +35,7 @@ public:
 	void readCSV();
 	void writeCSV(string person);
 	void createGroup (vector <Group>& groups);
+	inline bool checkFile(string myFileName);
 
 private :
 
