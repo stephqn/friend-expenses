@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 				    break;
 		case READ: csv.openCSV(string(argv[2])); break;
 	}
-	if(state)//Fin du programme
+	if(state == ERROR)//Fin du programme
 	{
 		cout << "\nExiting..." << endl;
 		return 1;
