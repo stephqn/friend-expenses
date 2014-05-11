@@ -10,6 +10,7 @@
 #include "Group.hpp"
 #include "Donor.hpp"
 #include "Csv.hpp"
+#include "Arg.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -46,47 +47,37 @@ int main(int argc, char **argv)
 {
 	/********* LOCAL VARIABLES *********/
 
-    int color_indexer = 0;
+    int color_indexer = 0, state = 0;
     float aExpensesPerPerson = 0;
 
+    string newdata = "Empty";
 
     vector<Group> Groups;
 
     const char* colors[NB_MAX_COLOR] = {BOLDWHITE, BOLDRED, BOLDGREEN, BOLDBLUE, BOLDMAGENTA, BOLDCYAN, BOLDBLACK};
 	/*---------------------------------*/
 
-
     Csv csv;
+    Arg arg;
 
-    if (argv[1] == NULL)
-    {
-    	cout << "\nNo input file specified... Exiting" << endl;
-    	return 0;
-    }
+	arg.readArg(argc,argv,&state, &newdata);//Gestion des arguments
 
-    csv.openCSV(string(argv[1]));
+	switch(state)
+	{
+		case ERROR:break;
 
-    if(argc > 2) /* TODO implement arguments handling */
-    {
-    	string COMMA = ",";
-    	string append;
-    	append = argv[2] + COMMA + argv[3] + COMMA + argv[4] + COMMA + argv[5] + COMMA + argv[6] + "\n";
-    	csv.writeCSV(append);
-    }
-
+		case WRITE: csv.openCSV(string(argv[12]));
+				    csv.writeCSV(newdata);
+				    break;
+		case READ: csv.openCSV(string(argv[2])); break;
+	}
+	if(state == ERROR)//Fin du programme
+	{
+		cout << "\nExiting..." << endl;
+		return 1;
+	}
     csv.readCSV();
     csv.createGroup(Groups);
-
-#ifdef DEBUG
-    for(int i=0; i<vPerson.size();i++)
-    {
-    	cout << vPerson[i]->getName() << vPerson[i]->getPhoneNumber() << endl;
-
-    }
-
-    for(int i=0; i<list_group.size(); i++)
-    	cout << list_group[i] << endl;
-#endif
 
     /*
      *  Prepare the output
